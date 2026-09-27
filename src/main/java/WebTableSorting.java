@@ -30,5 +30,18 @@ public class WebTableSorting {
         //compare original list vs sorted list
         Assert.assertEquals(originalList, sortedList);
 
+        //scan the name column with getText -> Rice -> print price of the Rice
+        List<String> price = elementsList.stream()
+                .filter(s->s.getText().equalsIgnoreCase("Beans"))
+                .map(s -> getPriceVeggies(s))
+                .collect(Collectors.toList());
+
+        System.out.println("Price of the Rice : " + price);
+
+    }
+
+    private static String getPriceVeggies(WebElement s) {
+        String priceVal = s.findElement(By.xpath("following-sibling::td[1]")).getText();
+        return priceVal;
     }
 }
